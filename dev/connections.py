@@ -10,3 +10,5 @@ conn = snowflake.connector.connect(
     account=os.environ['SF_ACCOUNT']
     )
 
+cursor = conn.cursor()
+cursor.execute("SELECT * FROM DEV.RAW.TITANIC_TRAIN_RAW")
