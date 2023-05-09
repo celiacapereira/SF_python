@@ -11,5 +11,5 @@ conn = snowflake.connector.connect(
     )
 
 cursor = conn.cursor()
-cursor.execute("SELECT * FROM DEV.RAW.TITANIC_TRAIN_RAW")
+cursor.execute("SELECT * FROM DEV.RAW.TITANIC_TRAIN_RAW;")
 	
