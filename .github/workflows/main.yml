@@ -26,7 +26,8 @@ jobs:
           python-version: 3.8.x
 
       - name: Read file contents
-        uses:  celiacapereira/repo@ref
+        uses:  celiacapereira/SF_python
+        
         
         with:
             path: "V1.1.1__connection_python.py"
