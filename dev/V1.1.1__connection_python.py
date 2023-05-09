@@ -9,7 +9,7 @@ conn = snowflake.connector.connect(
     password=os.environ['SF_PASSWORD'],
     account=os.environ['SF_ACCOUNT']
     )
-print(conn.user)
+# print(conn.user)
 cursor = conn.cursor()
 cursor.execute("SELECT * FROM DEV.RAW.TITANIC_TRAIN_RAW;")
 print("connection is donne")

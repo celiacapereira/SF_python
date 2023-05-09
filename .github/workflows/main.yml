@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'dev/V1.1.1__connection_python.py'
+      - 'dev/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -25,14 +25,10 @@ jobs:
         with:
           python-version: 3.8.x
 
-      - name: Run rrun
-        run: echo "TEST"
-         script: |
-            conn = snowflake.connector.connect(
-    user=os.environ['SF_USERNAME'],
-    password=os.environ['SF_PASSWORD'],
-    account=os.environ['SF_ACCOUNT']
-    )
-
-cursor = conn.cursor()
-cursor.execute("SELECT * FROM DEV.RAW.TITANIC_TRAIN_RAW;")
+      - name: Read file contents
+        uses: celiacapereira/SF_python/dev/
+        
+        with:
+            path: "V1.1.1__connection_python.py"
+      - name: File contents
+        run: echo "${ steps.read_file.outputs.contents }"
