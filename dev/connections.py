@@ -5,8 +5,8 @@ import pandas as pd
 from snowflake.connector.pandas_tools import write_pandas
 
 conn = snowflake.connector.connect(
-    user=os.environ['user'],
-    password=os.environ['password'],
-    account=os.environ['account']
+    user=os.environ['SF_USERNAME'],
+    password=os.environ['SF_PASSWORD'],
+    account=os.environ['SF_ACCOUNT']
     )
 
