@@ -20,16 +20,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Use Python 3.8.x
+      - name: Install Python
         uses: actions/setup-python@v2.2.1
         with:
-          python-version: 3.8.x
+          python-version: 3.7.x
 
-      - name: Read file contents
-        uses:  celiacapereira/SF_python/dev/V1.1.1__connection_python.py
-        
-        
-        with:
-            path: "V1.1.1__connection_python.py"
-      - name: File contents
-        run: echo "${ steps.read_file.outputs.contents }"
+      - name: Run Python Script
+        uses: python dev/V1.1.1__connection_python.py
