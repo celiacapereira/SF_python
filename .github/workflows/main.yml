@@ -26,4 +26,4 @@ jobs:
           python-version: 3.7.x
 
       - name: Run Python Script
-        uses: python /dev/V1.1.1__connection_python.py
+        uses: python V1.1.1__connection_python.py
