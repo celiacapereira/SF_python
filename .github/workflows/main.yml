@@ -26,4 +26,13 @@ jobs:
           python-version: 3.7.x
 
       - name: Run Python Script
-        uses: python V1.1.1__connection_python.py
+        run: python V1.1.1__connection_python.py
+        env:
+          SF_ACCOUNT: ${{ secrets.SF_ACCOUNT }} 
+          SF_USERNAME: ${{ secrets.SF_USERNAME }} 
+          SNOWFLAKE_PASSWORD: ${{ secrets.SF_PASSWORD }} 
+
+
+
+
+#       run: ENV_SECRET=${{ secrets.ENV_SECRET }} REPO_SECRET=${{ secrets.REPO_SECRET }} python -c 'import os;print(os.environ)'
