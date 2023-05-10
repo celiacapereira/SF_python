@@ -28,6 +28,6 @@ jobs:
       - name: Run Python Script
         run: python V1.1.1__connection_python.py
         env:
-          SF_ACCOUNT: ${{ secrets.SF_ACCOUNT }} 
-          SF_USERNAME: ${{ secrets.SF_USERNAME }} 
-          SNOWFLAKE_PASSWORD: ${{ secrets.SF_PASSWORD }} 
+          SF_ACCOUNT: ${{ env.SF_ACCOUNT}} 
+          SF_USERNAME: ${{ env.SF_USERNAME}} 
+          SNOWFLAKE_PASSWORD: ${{ env.SNOWFLAKE_PASSWORD }} 
