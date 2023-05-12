@@ -14,8 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: List all files
-        run: ls
 
       - name: Install Python 
         uses: actions/setup-python@v2
@@ -38,7 +36,7 @@ jobs:
           SF_ROLE: "ACCOUNTADMIN"
           SF_WAREHOUSE: "COMPUTE_WH"
           SF_DATABASE: "DEV"
-          SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SF_PASSWORD }}
         run: |
           echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
           python --version
