@@ -23,10 +23,11 @@ connection = snowflake.connector.connect (
 
 cursor = connection.cursor()
 
-print("Vamos testar a connecção")
 
 cursor.execute("SELECT * FROM DEV.RAW.TITANIC_TRAIN_RAW")
-# df = cursor.fetch_pandas_all()
+df = cursor.fetch_pandas_all()
+
+print("Estamos no fetch all")
 
 # print("já passou o df")
 # # # cursor.close()
