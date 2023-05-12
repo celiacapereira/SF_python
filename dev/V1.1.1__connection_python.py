@@ -4,8 +4,10 @@ from snowflake.connector import *
 import pandas as pd
 from snowflake.connector.pandas_tools import write_pandas
 # import SF_python.test.connection as d
-from test.connection import df_drop as d
+from testes.connection import df_drop
 
+
+print(df_drop)
 account = os.environ['SF_ACCOUNT']
 password = os.environ['SF_PASSWORD']
 username= os.environ['SF_USERNAME']

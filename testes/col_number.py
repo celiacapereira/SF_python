@@ -1,4 +1,4 @@
-import connection  as c
+import connection as c
 
 
 def col_number(df_insert):

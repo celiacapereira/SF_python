@@ -36,28 +36,28 @@ jobs:
           SF_ACCOUNT: ${{SECRETS.SF_ACCOUNT}}
           SF_PASSWORD: ${{secrets.SF_PASSWORD}}
           SF_USERNAME: ${{secrets.SF_USERNAME}}
-        run: python test/connection.py        
+        run: python testes/connection.py        
 
       - name: Run null tests  
         env:
           SF_ACCOUNT: ${{SECRETS.SF_ACCOUNT}}
           SF_PASSWORD: ${{secrets.SF_PASSWORD}}
           SF_USERNAME: ${{secrets.SF_USERNAME}}
-        run: python test/is_null.py
+        run: python testes/is_null.py
 
       - name: Run row tests
         env:
           SF_ACCOUNT: ${{SECRETS.SF_ACCOUNT}}
           SF_PASSWORD: ${{secrets.SF_PASSWORD}}
           SF_USERNAME: ${{secrets.SF_USERNAME}}
-        run: python test/row_number.py
+        run: python testes/row_number.py
 
       - name: run col tests
         env:
           SF_ACCOUNT: ${{SECRETS.SF_ACCOUNT}}
           SF_PASSWORD: ${{secrets.SF_PASSWORD}}
           SF_USERNAME: ${{secrets.SF_USERNAME}}      
-        run: python test/col_number.py
+        run: python testes/col_number.py
 
       - name: Run schemachange
         env:

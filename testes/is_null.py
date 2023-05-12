@@ -1,5 +1,5 @@
 
-import connection  as c
+import connection as c
 
 def is_null(df_insert): 
     if df_insert.isnull().values.any() == True:
