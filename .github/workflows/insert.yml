@@ -15,7 +15,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      
 
       - name: Install Python 
         uses: actions/setup-python@v2
@@ -28,8 +27,8 @@ jobs:
       - name: Install pandas 
         run: pip install pandas --upgrade
 
-      - name: Install pandas snowflake
-        run: pip install snowflake-connector-python[pandas] --upgrade
+      # - name: Install pandas snowflake
+      #   run: pip install snowflake-connector-python[pandas] --upgrade
             
       - name: Run schemachange
         env:
@@ -44,10 +43,13 @@ jobs:
           python --version
           echo "Step 1: Installing schemachange"
           pip install schemachange
-          
-          echo "Step 2 " Insert data
+
+          echo "Step 2: Installing schemachange"
+          pip install snowflake-connector-python[pandas] --upgrade
+
+          echo "Step 3 " Insert data
           python dev/V1.1.1__connection_python.py
 
-          echo "Step 3: Running schemachange"
+          echo "Step 4: Running schemachange"
           schemachange -f $GITHUB_WORKSPACE/dev -a $SF_ACCOUNT -u $SF_USERNAME -r $SF_ROLE -w $SF_WAREHOUSE -d $SF_DATABASE -c $SF_DATABASE.SCHEMACHANGE.CHANGE_HISTORY --create-change-history-table  
             
