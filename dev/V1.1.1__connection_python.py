@@ -25,7 +25,7 @@ cursor = connection.cursor()
 
 print("Vamos testar a connecção")
 
-# cursor.execute("SELECT * FROM DEV.RAW.TITANIC_TRAIN_RAW")
+cursor.execute("SELECT * FROM DEV.RAW.TITANIC_TRAIN_RAW")
 # df = cursor.fetch_pandas_all()
 
 # print("já passou o df")
