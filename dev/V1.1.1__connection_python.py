@@ -3,8 +3,8 @@ import snowflake.connector
 from snowflake.connector import *
 import pandas as pd
 from snowflake.connector.pandas_tools import write_pandas
-import SF_python.test.connection as d
-
+# import SF_python.test.connection as d
+from test.connection import df_drop as d
 
 account = os.environ['SF_ACCOUNT']
 password = os.environ['SF_PASSWORD']
@@ -43,7 +43,7 @@ conn.cursor().execute(""" CREATE TABLE DEV.REPORT.TITANIC_REPORT (
 
 success, num_chunks, num_rows, output = write_pandas(
             conn=conn,
-            df=d.df_drop,
+            df=d,
             table_name='TITANIC_REPORT',
             database='DEV',
             schema='REPORT'
