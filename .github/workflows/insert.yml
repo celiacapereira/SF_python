@@ -4,6 +4,8 @@ name: Insert worflow
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'dev/**'
 
   workflow_dispatch:
 
