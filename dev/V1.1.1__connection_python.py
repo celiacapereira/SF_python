@@ -25,10 +25,10 @@ cursor = connection.cursor()
 
 print("Vamos testar a connecção")
 
-cursor.execute("SELECT * FROM DEV.RAW.TITANIC_TRAIN_RAW")
-df = cursor.fetch_pandas_all()
+# cursor.execute("SELECT * FROM DEV.RAW.TITANIC_TRAIN_RAW")
+# df = cursor.fetch_pandas_all()
 
-print("já passou o df")
+# print("já passou o df")
 # # # cursor.close()
 
 # df_drop = df.drop(['NAME', 'TICKET', 'FARE', 'CABIN', 'EMARKED'], axis = 1)
