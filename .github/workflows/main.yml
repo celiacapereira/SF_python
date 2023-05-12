@@ -3,7 +3,7 @@ name: Testing workflow
 
 on:
   push:
-    branches: [ "test_ci" ]
+    branches: [ "main" ]
 
   workflow_dispatch:
 
