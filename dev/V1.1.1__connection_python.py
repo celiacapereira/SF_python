@@ -3,7 +3,8 @@ import snowflake.connector
 from snowflake.connector import *
 import pandas as pd
 from snowflake.connector.pandas_tools import write_pandas
-import testes.connection as d
+import SF_python.test.connection as d
+
 
 account = os.environ['SF_ACCOUNT']
 password = os.environ['SF_PASSWORD']
@@ -16,19 +17,19 @@ username= os.environ['SF_USERNAME']
 
 print("Estamos na pasta dev")
 
-connection = snowflake.connector.connect (
+conn = snowflake.connector.connect (
     user=username,
     password=password,
     account=account
 
 )
-cursor = connection.cursor()
+cursor = conn.cursor()
 
-connection.cursor().execute("USE WAREHOUSE COMPUTE_WH;")
+conn.cursor().execute("USE WAREHOUSE COMPUTE_WH;")
 
-connection.cursor().execute("CREATE OR REPLACE SCHEMA DEV.REPORT; ")
+conn.cursor().execute("CREATE OR REPLACE SCHEMA DEV.REPORT; ")
 
-connection.cursor().execute(""" CREATE TABLE DEV.REPORT.TITANIC_REPORT (
+conn.cursor().execute(""" CREATE TABLE DEV.REPORT.TITANIC_REPORT (
     PASSENGERID INT,
     SURVIVED INT, 
     PCLASS INT, 
@@ -41,10 +42,11 @@ connection.cursor().execute(""" CREATE TABLE DEV.REPORT.TITANIC_REPORT (
 
 
 success, num_chunks, num_rows, output = write_pandas(
-            conn=connection,
+            conn=conn,
             df=d.df_drop,
             table_name='TITANIC_REPORT',
             database='DEV',
             schema='REPORT'
         )
 cursor.close()
+
