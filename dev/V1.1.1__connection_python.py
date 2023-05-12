@@ -61,27 +61,27 @@ df_drop['AgeRange'] = pd.cut(age, bins, labels = labels, include_lowest = True)
 df_drop.rename(columns = {'AgeRange':'AGERANGE'}, inplace = True)
 
 
-# connection.cursor().execute("USE WAREHOUSE COMPUTE_WH;")
+connection.cursor().execute("USE WAREHOUSE COMPUTE_WH;")
 
-# connection.cursor().execute("CREATE OR REPLACE SCHEMA DEV.REPORT; ")
+connection.cursor().execute("CREATE OR REPLACE SCHEMA DEV.REPORT; ")
 
-# connection.cursor().execute(""" CREATE TABLE DEV.REPORT.TITANIC_REPORT (
-#     PASSENGERID INT,
-#     SURVIVED INT, 
-#     PCLASS INT, 
-#     SEX VARCHAR(6), 
-#     AGE INT, 
-#     SIBSP INT, 
-#     PARCH INT, 
-#     AGERANGE VARCHAR(5)
-#     )""")
+connection.cursor().execute(""" CREATE TABLE DEV.REPORT.TITANIC_REPORT (
+    PASSENGERID INT,
+    SURVIVED INT, 
+    PCLASS INT, 
+    SEX VARCHAR(6), 
+    AGE INT, 
+    SIBSP INT, 
+    PARCH INT, 
+    AGERANGE VARCHAR(5)
+    )""")
 
 
-# success, num_chunks, num_rows, output = write_pandas(
-#             conn=connection,
-#             df=df_drop,
-#             table_name='TITANIC_REPORT',
-#             database='DEV',
-#             schema='REPORT'
-#         )
-# cursor.close()
+success, num_chunks, num_rows, output = write_pandas(
+            conn=connection,
+            df=df_drop,
+            table_name='TITANIC_REPORT',
+            database='DEV',
+            schema='REPORT'
+        )
+cursor.close()
