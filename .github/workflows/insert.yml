@@ -1,62 +1,53 @@
 
-# name: Insert worflow
+name: Insert worflow
 
-# on:
-#   push:
-#     branches: [ "main" ]
+on:
+  push:
+    branches: [ "main" ]
 
-#   workflow_dispatch:
+  workflow_dispatch:
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-#     steps:
-#       - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
       
-#       - name: List all files
-#         run: ls
+      - name: List all files
+        run: ls
 
-#       - name: Install Python 
-#         uses: actions/setup-python@v2
-#         with:
-#           python-version: '3.7'
+      - name: Install Python 
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
       
-#       - name: Install connector 
-#         run: pip install snowflake-connector-python --upgrade
+      - name: Install connector 
+        run: pip install snowflake-connector-python --upgrade
 
-#       - name: Install pandas 
-#         run: pip install pandas --upgrade
+      - name: Install pandas 
+        run: pip install pandas --upgrade
 
-#       - name: Install pandas snowflake
-#         run: pip install snowflake-connector-python[pandas] --upgrade
+      - name: Install pandas snowflake
+        run: pip install snowflake-connector-python[pandas] --upgrade
             
-#       - name: Run schemachange
-#         env:
-#           SF_ACCOUNT: ${{ secrets.SF_ACCOUNT }}
-#           SF_USERNAME: ${{ secrets.SF_USERNAME }}
-#           SF_ROLE: "ACCOUNTADMIN"
-#           SF_WAREHOUSE: "COMPUTE_WH"
-#           SF_DATABASE: "DEV"
-#           SNOWFLAKE_PASSWORD: ${{ secrets.SF_PASSWORD }}
-#         run: |
-#           echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
-#           python --version
-#           echo "Step 1: Installing schemachange"
-#           pip install schemachange
+      - name: Run schemachange
+        env:
+          SF_ACCOUNT: ${{ secrets.SF_ACCOUNT }}
+          SF_USERNAME: ${{ secrets.SF_USERNAME }}
+          SF_ROLE: "ACCOUNTADMIN"
+          SF_WAREHOUSE: "COMPUTE_WH"
+          SF_DATABASE: "DEV"
+          SNOWFLAKE_PASSWORD: ${{ secrets.SF_PASSWORD }}
+        run: |
+          echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+          python --version
+          echo "Step 1: Installing schemachange"
+          pip install schemachange
           
-#           echo "Step 2 " Insert data
-#           python dev/V1.1.1__connection_python.py
+          echo "Step 2 " Insert data
+          python dev/V1.1.1__connection_python.py
 
-#           echo "Step 3: Running schemachange"
-#           schemachange -f $GITHUB_WORKSPACE/dev -a $SF_ACCOUNT -u $SF_USERNAME -r $SF_ROLE -w $SF_WAREHOUSE -d $SF_DATABASE -c $SF_DATABASE.SCHEMACHANGE.CHANGE_HISTORY --create-change-history-table  
-    
-
-
-#       # - name: Run schemachange
-#       #   run: |
-#       #   echo "Step 2: Running schemachange"
-#       #   schemachange -f $GITHUB_WORKSPACE/ -a $SF_ACCOUNT -u $SF_USERNAME -r "ACCOUNTADMIN" -w $SF_WAREHOUSE -d $SF_DATABASE -c $SF_DATABASE.SCHEMACHANGE.CHANGE_HISTORY --create-change-history-table
-
-
-        
+          echo "Step 3: Running schemachange"
+          schemachange -f $GITHUB_WORKSPACE/dev -a $SF_ACCOUNT -u $SF_USERNAME -r $SF_ROLE -w $SF_WAREHOUSE -d $SF_DATABASE -c $SF_DATABASE.SCHEMACHANGE.CHANGE_HISTORY --create-change-history-table  
+            
