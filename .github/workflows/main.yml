@@ -58,12 +58,3 @@ jobs:
           SF_PASSWORD: ${{secrets.SF_PASSWORD}}
           SF_USERNAME: ${{secrets.SF_USERNAME}}      
         run: python testes/col_number.py
-
-
-      # - name: Run schemachange
-      #   run: |
-      #   echo "Step 2: Running schemachange"
-      #   schemachange -f $GITHUB_WORKSPACE/ -a $SF_ACCOUNT -u $SF_USERNAME -r "ACCOUNTADMIN" -w $SF_WAREHOUSE -d $SF_DATABASE -c $SF_DATABASE.SCHEMACHANGE.CHANGE_HISTORY --create-change-history-table
-
-
-        
