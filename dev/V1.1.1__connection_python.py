@@ -9,20 +9,22 @@ password = os.environ['SNOWFLAKE_PASSWORD']
 username= os.environ['SF_USERNAME']
 
 
-print(f"SF ACCOUNT IS:  {account}")
-print(f"SF PASSWORD IS:  {password}")
-print(f"SF USERNAME IS:  {username}")
+# print(f"SF ACCOUNT IS:  {account}")
+# print(f"SF PASSWORD IS:  {password}")
+# print(f"SF USERNAME IS:  {username}")
+
+
+connection = snowflake.connector.connect (
+    user=username,
+    password=password,
+    account=account
+
+)
+
+cursor = connection.cursor()
 
 print("Vamos testar a connecção")
 
-# connection = snowflake.connector.connect (
-#     user=username,
-#     password=password,
-#     account=account
-
-# )
-
-# cursor = connection.cursor()
 # cursor.execute("SELECT * FROM DEV.RAW.TITANIC_TRAIN_RAW")
 # df = cursor.fetch_pandas_all()
 # # cursor.close()
