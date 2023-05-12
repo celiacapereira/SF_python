@@ -73,7 +73,10 @@ jobs:
           echo "Step 1: Installing schemachange"
           pip install schemachange
           
-          echo "Step 2: Running schemachange"
+          echo "Step 2 " Insert data
+          python dev/V1.1.1__connection_python.py
+
+          echo "Step 3: Running schemachange"
           schemachange -f $GITHUB_WORKSPACE/dev -a $SF_ACCOUNT -u $SF_USERNAME -r $SF_ROLE -w $SF_WAREHOUSE -d $SF_DATABASE -c $SF_DATABASE.SCHEMACHANGE.CHANGE_HISTORY --create-change-history-table  
     
 
