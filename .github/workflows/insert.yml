@@ -38,7 +38,7 @@ jobs:
           SF_ROLE: "ACCOUNTADMIN"
           SF_WAREHOUSE: "COMPUTE_WH"
           SF_DATABASE: "DEV"
-          SNOWFLAKE_PASSWORD: ${{ secrets.SF_PASSWORD }}
+          SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
         run: |
           echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
           python --version
