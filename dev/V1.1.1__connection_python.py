@@ -19,7 +19,6 @@ connection = snowflake.connector.connect (
     user=username,
     password=password,
     account=account
-
 )
 
 cursor = connection.cursor()
