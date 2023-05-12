@@ -1,33 +1,87 @@
-name: snowflake-devops-demo
 
-# Controls when the action will run. 
+name: Testing workflow
+
 on:
   push:
-    branches:
-      - main
-    paths:
-      - 'dev/**'
+    branches: [ "test_ci" ]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
-  deploy-snowflake-changes-job:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      
+      - name: List all files
+        run: ls
 
-      - name: Install Python
-        uses: actions/setup-python@v2.2.1
+      - name: Install Python 
+        uses: actions/setup-python@v2
         with:
-          python-version: 3.7.x
+          python-version: '3.7'
+      
+      - name: Install connector 
+        run: pip install snowflake-connector-python --upgrade
 
-      - name: Run Python Script
-        run: python V1.1.1__connection_python.py
+      - name: Install pandas 
+        run: pip install pandas --upgrade
+
+      - name: Install pandas snowflake
+        run: pip install snowflake-connector-python[pandas] --upgrade
+            
+      - name: Run dataframe  
         env:
-          SF_ACCOUNT: ${{ env.SF_ACCOUNT}} 
-          SF_USERNAME: ${{ env.SF_USERNAME}} 
-          SNOWFLAKE_PASSWORD: ${{ env.SNOWFLAKE_PASSWORD }} 
+          SF_ACCOUNT: ${{SECRETS.SF_ACCOUNT}}
+          SF_PASSWORD: ${{secrets.SF_PASSWORD}}
+          SF_USERNAME: ${{secrets.SF_USERNAME}}
+        run: python test/connection.py        
+
+      - name: Run null tests  
+        env:
+          SF_ACCOUNT: ${{SECRETS.SF_ACCOUNT}}
+          SF_PASSWORD: ${{secrets.SF_PASSWORD}}
+          SF_USERNAME: ${{secrets.SF_USERNAME}}
+        run: python test/is_null.py
+
+      - name: Run row tests
+        env:
+          SF_ACCOUNT: ${{SECRETS.SF_ACCOUNT}}
+          SF_PASSWORD: ${{secrets.SF_PASSWORD}}
+          SF_USERNAME: ${{secrets.SF_USERNAME}}
+        run: python test/row_number.py
+
+      - name: run col tests
+        env:
+          SF_ACCOUNT: ${{SECRETS.SF_ACCOUNT}}
+          SF_PASSWORD: ${{secrets.SF_PASSWORD}}
+          SF_USERNAME: ${{secrets.SF_USERNAME}}      
+        run: python test/col_number.py
+
+      - name: Run schemachange
+        env:
+          SF_ACCOUNT: ${{ secrets.SF_ACCOUNT }}
+          SF_USERNAME: ${{ secrets.SF_USERNAME }}
+          SF_ROLE: "ACCOUNTADMIN"
+          SF_WAREHOUSE: "COMPUTE_WH"
+          SF_DATABASE: "DEV"
+          SNOWFLAKE_PASSWORD: ${{ secrets.SF_PASSWORD }}
+        run: |
+          echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+          python --version
+          echo "Step 1: Installing schemachange"
+          pip install schemachange
+          
+          echo "Step 2: Running schemachange"
+          schemachange -f $GITHUB_WORKSPACE/dev -a $SF_ACCOUNT -u $SF_USERNAME -r $SF_ROLE -w $SF_WAREHOUSE -d $SF_DATABASE -c $SF_DATABASE.SCHEMACHANGE.CHANGE_HISTORY --create-change-history-table  
+    
+
+
+      # - name: Run schemachange
+      #   run: |
+      #   echo "Step 2: Running schemachange"
+      #   schemachange -f $GITHUB_WORKSPACE/ -a $SF_ACCOUNT -u $SF_USERNAME -r "ACCOUNTADMIN" -w $SF_WAREHOUSE -d $SF_DATABASE -c $SF_DATABASE.SCHEMACHANGE.CHANGE_HISTORY --create-change-history-table
+
+
+        
