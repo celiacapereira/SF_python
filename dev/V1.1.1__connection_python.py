@@ -5,20 +5,24 @@ import pandas as pd
 from snowflake.connector.pandas_tools import write_pandas
 
 account = os.environ['SF_ACCOUNT']
-password = os.environ['SNOWFLAKE_PASSWORD']
+password = os.environ['SF_PASSWORD']
 username= os.environ['SF_USERNAME']
 
 
-print("Estamos na pasta dev")
+print(f"SF ACCOUNT IS:  {account}")
+print(f"SF PASSWORD IS:  {password}")
+print(f"SF USERNAME IS:  {username}")
 
-conn = snowflake.connector.connect (
+print("Vamos testar a connecção")
+
+connection = snowflake.connector.connect (
     user=username,
     password=password,
     account=account
 
 )
 
-cursor = conn.cursor()
+cursor = connection.cursor()
 cursor.execute("SELECT * FROM DEV.RAW.TITANIC_TRAIN_RAW")
 df = cursor.fetch_pandas_all()
 # cursor.close()
@@ -57,12 +61,11 @@ df_drop['AgeRange'] = pd.cut(age, bins, labels = labels, include_lowest = True)
 
 df_drop.rename(columns = {'AgeRange':'AGERANGE'}, inplace = True)
 
+connection.cursor().execute("USE WAREHOUSE COMPUTE_WH;")
 
-conn.cursor().execute("USE WAREHOUSE COMPUTE_WH;")
+connection.cursor().execute("CREATE OR REPLACE SCHEMA DEV.REPORT; ")
 
-conn.cursor().execute("CREATE OR REPLACE SCHEMA DEV.REPORT; ")
-
-conn.cursor().execute(""" CREATE TABLE DEV.REPORT.TITANIC_REPORT (
+connection.cursor().execute(""" CREATE TABLE DEV.REPORT.TITANIC_REPORT (
     PASSENGERID INT,
     SURVIVED INT, 
     PCLASS INT, 
@@ -75,11 +78,10 @@ conn.cursor().execute(""" CREATE TABLE DEV.REPORT.TITANIC_REPORT (
 
 
 success, num_chunks, num_rows, output = write_pandas(
-            conn=conn,
+            conn=connection,
             df=df_drop,
             table_name='TITANIC_REPORT',
             database='DEV',
             schema='REPORT'
         )
 cursor.close()
-
