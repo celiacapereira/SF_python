@@ -73,6 +73,7 @@ jobs:
           runs-on: ubuntu-latest
           environment:
             name: Pre-Prod
+          needs: build   
           steps:
             - name: Run schemachange
               env:
