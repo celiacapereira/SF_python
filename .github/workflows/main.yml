@@ -62,7 +62,7 @@ jobs:
           SF_USERNAME: ${{secrets.SF_USERNAME}}      
         run: python testes/col_number.py
 
-      - name: Insert_Data
+      - name: Insert_Data_to_sf
         env:
           SF_ACCOUNT: ${{SECRETS.SF_ACCOUNT}}
           SF_PASSWORD: ${{secrets.SF_PASSWORD}}
