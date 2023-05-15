@@ -89,5 +89,5 @@ jobs:
                 echo "Step 1: Installing schemachange"
                 pip install schemachange
                 
-                # echo "Step 2: Running schemachange"
-                # schemachange -f SF_python/snowflake -a $SF_ACCOUNT -u $SF_USERNAME -r $SF_ROLE -w $SF_WAREHOUSE -d $SF_DATABASE -c $SF_DATABASE.SCHEMACHANGE.CHANGE_HISTORY --create-change-history-table       
+                echo "Step 2: Running schemachange"
+                schemachange -f $GITHUB_WORKSPACE/snowflake -a $SF_ACCOUNT -u $SF_USERNAME -r $SF_ROLE -w $SF_WAREHOUSE -d $SF_DATABASE -c $SF_DATABASE.SCHEMACHANGE.CHANGE_HISTORY --create-change-history-table       
